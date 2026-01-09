@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
 import '../services/storage_service.dart';
 import '../onboarding/age_input_screen.dart';
-import '../life_map/life_map_screen.dart';
 import '../widgets/loading_button.dart';
+import 'register_screen.dart'; // LowerCaseTextFormatter is in this file
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final response = await ApiService.login(
-        _emailController.text.trim().toLowerCase(),
+        _emailController.text.trim(),
         _passwordController.text,
       );
 
@@ -43,18 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (response['success'] == true) {
         await StorageService.saveToken(response['token']);
-        
-        final user = response['user'];
         if (!mounted) return;
-        if (user['birth_year'] == null || user['birth_month'] == null) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const AgeInputScreen()),
-          );
-        } else {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const LifeMapScreen()),
-          );
-        }
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const AgeInputScreen()),
+        );
       } else {
         _showError(response['error'] ?? 'Login failed');
       }
@@ -74,17 +67,10 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       if (response['success'] == true) {
-        final user = response['user'];
         if (!mounted) return;
-        if (user['birth_year'] == null || user['birth_month'] == null) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const AgeInputScreen()),
-          );
-        } else {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const LifeMapScreen()),
-          );
-        }
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const AgeInputScreen()),
+        );
       } else {
         _showError(response['error'] ?? 'Google sign in failed');
       }
@@ -110,12 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -125,14 +106,14 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Welcome Back',
+                  'Welcome Back!',
                   style: Theme.of(context).textTheme.displayLarge,
                 ).animate().fadeIn().slideX(begin: -0.2, end: 0),
                 
                 const SizedBox(height: 8),
                 
                 Text(
-                  'Sign in to continue your journey',
+                  'Ready to continue your journey?',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: const Color(0xFF737373),
                   ),
@@ -146,6 +127,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   textCapitalization: TextCapitalization.none,
                   autocorrect: false,
                   enableSuggestions: false,
+                  inputFormatters: [
+                    LowerCaseTextFormatter(),
+                  ],
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     prefixIcon: Icon(Icons.email_outlined),
@@ -169,6 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   textCapitalization: TextCapitalization.none,
                   autocorrect: false,
                   enableSuggestions: false,
+                   inputFormatters: [
+                    LowerCaseTextFormatter(),
+                  ],
                   decoration: InputDecoration(
                     labelText: 'Password',
                     prefixIcon: const Icon(Icons.lock_outline),
@@ -237,6 +224,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ).animate().fadeIn(delay: 600.ms).slideY(begin: 0.3, end: 0),
+                
+                const SizedBox(height: 24),
+                
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Don\'t have an account? ',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                        );
+                      },
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          color: Color(0xFFFF6B35),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ).animate().fadeIn(delay: 700.ms),
               ],
             ),
           ),

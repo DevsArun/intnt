@@ -33,7 +33,6 @@ class AppTheme {
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          // ❌ REMOVED: fontFamily: 'Inter',
         ),
         iconTheme: IconThemeData(color: Colors.white),
       ),
@@ -59,7 +58,6 @@ class AppTheme {
           textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            // ❌ REMOVED: fontFamily: 'Inter',
           ),
         ),
       ),
@@ -96,45 +94,37 @@ class AppTheme {
           fontSize: 32,
           fontWeight: FontWeight.w700,
           color: Colors.white,
-          // ❌ REMOVED: fontFamily: 'Inter',
           height: 1.2,
         ),
         displayMedium: TextStyle(
           fontSize: 28,
           fontWeight: FontWeight.w600,
           color: Colors.white,
-          // ❌ REMOVED: fontFamily: 'Inter',
           height: 1.2,
         ),
         displaySmall: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w600,
           color: Colors.white,
-          // ❌ REMOVED: fontFamily: 'Inter',
         ),
         headlineMedium: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: Colors.white,
-          // ❌ REMOVED: fontFamily: 'Inter',
         ),
         bodyLarge: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
           color: Color(0xFFE5E5E5),
-          // ❌ REMOVED: fontFamily: 'Inter',
           height: 1.5,
         ),
         bodyMedium: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           color: Color(0xFFA3A3A3),
-          // ❌ REMOVED: fontFamily: 'Inter',
           height: 1.5,
         ),
       ),
-      
-      // ❌ REMOVED: fontFamily: 'Inter',
     );
   }
 }

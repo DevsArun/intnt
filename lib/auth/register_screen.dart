@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
@@ -6,6 +7,17 @@ import '../services/storage_service.dart';
 import '../onboarding/age_input_screen.dart';
 import '../widgets/loading_button.dart';
 import 'login_screen.dart';
+
+// Custom formatter to convert text to lowercase
+class LowerCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return newValue.copyWith(
+      text: newValue.text.toLowerCase(),
+      selection: newValue.selection,
+    );
+  }
+}
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -38,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       final response = await ApiService.register(
-        _emailController.text.trim().toLowerCase(),
+        _emailController.text.trim(),
         _passwordController.text,
       );
 
@@ -134,6 +146,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textCapitalization: TextCapitalization.none,
                   autocorrect: false,
                   enableSuggestions: false,
+                  inputFormatters: [
+                    LowerCaseTextFormatter(),
+                  ],
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     prefixIcon: Icon(Icons.email_outlined),
@@ -157,6 +172,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textCapitalization: TextCapitalization.none,
                   autocorrect: false,
                   enableSuggestions: false,
+                  inputFormatters: [
+                    LowerCaseTextFormatter(),
+                  ],
                   decoration: InputDecoration(
                     labelText: 'Password',
                     prefixIcon: const Icon(Icons.lock_outline),
@@ -188,6 +206,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textCapitalization: TextCapitalization.none,
                   autocorrect: false,
                   enableSuggestions: false,
+                  inputFormatters: [
+                    LowerCaseTextFormatter(),
+                  ],
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     prefixIcon: const Icon(Icons.lock_outline),
