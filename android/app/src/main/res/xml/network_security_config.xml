@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- =============================================================== -->
+    <!-- FINAL AND COMPREHENSIVE FIX FOR ANDROID SSL/TLS CONNECTION    -->
+    <!-- =============================================================== -->
+
+    <!-- Base configuration for all connections in the app -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Trust the default system CAs (Certificate Authorities) -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Specific configuration for your app's domain to cover all edge cases -->
+    <domain-config>
+        <domain includeSubdomains="true">app.devsarun.io</domain>
+        <trust-anchors>
+            <!-- Re-affirming trust in system CAs for this specific domain -->
+            <certificates src="system" />
+            <!-- Adding user-installed CAs as a fallback. This can help if an
+                 intermediate certificate is not being served correctly by the server. -->
+            <certificates src="user" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>
