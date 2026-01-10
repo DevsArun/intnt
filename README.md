@@ -1,16 +1,28 @@
-# myapp
+# Life in Months 📅
 
-A new Flutter project.
+A Flutter application that visualizes your entire life as 1080 months (90 years), helping you track milestones and make every month count.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- 📊 Visual life map with 1080 dots (one per month)
+- 🔐 Email/Password & Google Sign-In authentication
+- ✅ Milestone tracking and management
+- 📱 Cross-platform (Android, iOS, Web)
+- 🔄 Auto-login with JWT tokens
+- 🎨 Beautiful, intuitive UI
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Frontend:**
+- Flutter 3.x
+- Dart 3.5.0
+- Packages: `dio`, `google_sign_in`, `shared_preferences`, `share_plus`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Backend:**
+- PHP 8.x
+- MySQL Database
+- JWT Authentication
+- RESTful API
+
+## 📁 Project Structure
+
